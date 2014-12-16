@@ -1,0 +1,4 @@
+% goal to find
+% Written in the form in_path([location 1], [location 2])
+in_path(l3_500, l3_516).
+

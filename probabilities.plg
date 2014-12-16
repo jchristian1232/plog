@@ -1,0 +1,41 @@
+% Probabilities of doors
+%[r(D, R1, R2, R3)] pr(state(d3_414a) = open) = 3/4.
+%[r(D, R1, R2, R3)] pr(state(2) = open) = 1/4.
+%[r(D, R1, R2, R3)] pr(state(3) = open) = 1/2.
+
+% line not needed.  Plog assumes open/closed states are equally likely already
+%[r(D, R1, R2, R3)] pr(state(D) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_516a) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_516b) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_500) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_502) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_508) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_510) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_512) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_436) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_432) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_430) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_428) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_426) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_422) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_420) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_418) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_416) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414b3) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414b2) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414b1) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414a3) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_414a2) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414a1) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_412) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_404) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_402) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_400) = open) = 1/2.
+

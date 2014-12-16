@@ -1,0 +1,162 @@
+doors = {d3_400, d3_402, d3_404, d3_412, d3_414a1, d3_414a2, d3_414a3, d3_414b1, d3_414b2, d3_414b3, d3_416, d3_418, d3_420, d3_422, d3_426, d3_428, d3_430, d3_432, d3_436, d3_500, d3_502, d3_508, d3_510, d3_512, d3_516a, d3_516b}.
+rooms = {l3_512, l3_516, l3_400, l3_406, l3_408, l3_410, l3_424, l3_434, l3_500, l3_504, l3_506, l3_520, l3_514, l3_518}.
+hasdoor(l3_200, d3_500).
+hasdoor(l3_500, d3_500).
+hasdoor(l3_300, d3_400).
+hasdoor(l3_400, d3_400).
+hasdoor(l3_402, d3_402).
+hasdoor(l3_400, d3_402).
+hasdoor(l3_404, d3_404).
+hasdoor(l3_400, d3_404).
+hasdoor(l3_412, d3_412).
+hasdoor(l3_400, d3_412).
+hasdoor(l3_414a, d3_414a1).
+hasdoor(l3_400, d3_414a1).
+hasdoor(l3_414a, d3_414a2).
+hasdoor(l3_500, d3_414a2).
+hasdoor(l3_414a, d3_414a3).
+hasdoor(l3_414, d3_414a3).
+hasdoor(l3_414b, d3_414b1).
+hasdoor(l3_500, d3_414b1).
+hasdoor(l3_414b, d3_414b2).
+hasdoor(l3_400, d3_414b2).
+hasdoor(l3_414b, d3_414b3).
+hasdoor(l3_414, d3_414b3).
+hasdoor(l3_416, d3_416).
+hasdoor(l3_400, d3_416).
+hasdoor(l3_418, d3_418).
+hasdoor(l3_400, d3_418).
+hasdoor(l3_420, d3_420).
+hasdoor(l3_400, d3_420).
+hasdoor(l3_422, d3_422).
+hasdoor(l3_400, d3_422).
+hasdoor(l3_426, d3_426).
+hasdoor(l3_400, d3_426).
+hasdoor(l3_428, d3_428).
+hasdoor(l3_400, d3_428).
+hasdoor(l3_430, d3_430).
+hasdoor(l3_400, d3_430).
+hasdoor(l3_432, d3_432).
+hasdoor(l3_400, d3_432).
+hasdoor(l3_436, d3_436).
+hasdoor(l3_400, d3_436).
+hasdoor(l3_502, d3_502).
+hasdoor(l3_500, d3_502).
+hasdoor(l3_508, d3_508).
+hasdoor(l3_500, d3_508).
+hasdoor(l3_510, d3_510).
+hasdoor(l3_500, d3_510).
+hasdoor(l3_512, d3_512).
+hasdoor(l3_500, d3_512).
+hasdoor(l3_514, d3_516a).
+hasdoor(l3_516, d3_516a).
+hasdoor(l3_516, d3_516b).
+hasdoor(l3_500, d3_516b).
+
+acc(l3_200,l3_300).
+acc(l3_302,l3_200).
+acc(l3_302,l3_300).
+acc(l3_406,l3_400).
+acc(l3_406,l3_500).
+acc(l3_408,l3_400).
+acc(l3_410,l3_400).
+acc(l3_410,l3_500).
+acc(l3_424,l3_400).
+acc(l3_434,l3_400).
+acc(l3_434,l3_500).
+acc(l3_504,l3_500).
+acc(l3_506,l3_500).
+acc(l3_514,l3_500).
+acc(l3_518,l3_500).
+acc(L1,L1) :- location(L1).
+acc(L1,L2) :- acc(L2,L1), location(L1), location(L2). 
+acc(L1,L2) :- acc(L1,L3), acc(L2,L3), location(L1), location(L2), location(L3).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  An attempt to determine the most  %
+%      likely door that is open      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+door_states = {open, closed}.
+boolean = {true, false}.
+
+max_door : doors.
+
+state : doors -> door_states.
+in_path : rooms, rooms -> boolean.
+hasdoor : rooms, doors -> boolean.
+dooracc : rooms, doors, rooms -> boolean.
+acc : rooms, rooms -> boolean.
+
+
+#domain doors(D).
+#domain rooms(R1).
+#domain rooms(R2).
+#domain rooms(R3).
+
+
+hasdoor(R1, D) = false :- not hasdoor(R1, D).
+
+%max_door = D :- hasdoor(R1, D) = true, hasdoor(R2, D) = true, state(D) = open, in_path(R1, R2).
+max_door = D :- dooracc(R1, D, R3), state(D) = open, in_path(R1, R2), acc(R2, R3).
+
+dooracc(R1,D,R2) :- hasdoor(R1,D), hasdoor(R2,D), R1 <> R2. % <> is like !=
+dooracc(R1,D,R2) :- dooracc(R2,D,R1).
+
+
+acc(R1,R2) :- R1 == R2.
+acc(R1,R2) :- acc(R2,R1).
+acc(R1,R2) :- acc(R1,R3), acc(R2,R3).
+
+in_path(R1, R2) :- in_path(R2, R1).
+
+[p] random(max_door).
+
+[r(D, R1, R2, R3)] random(state(D)) :- in_path(R1, R2), dooracc(R1, D, R3), acc(R2, R3).
+
+? <max_door>.
+% Probabilities of doors
+%[r(D, R1, R2, R3)] pr(state(d3_414a) = open) = 3/4.
+%[r(D, R1, R2, R3)] pr(state(2) = open) = 1/4.
+%[r(D, R1, R2, R3)] pr(state(3) = open) = 1/2.
+
+% line not needed.  Plog assumes open/closed states are equally likely already
+%[r(D, R1, R2, R3)] pr(state(D) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_516a) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_516b) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_500) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_502) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_508) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_510) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_512) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_436) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_432) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_430) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_428) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_426) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_422) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_420) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_418) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_416) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414b3) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414b2) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414b1) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414a3) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_414a2) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_414a1) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_412) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_404) = open) = 1/2.
+[r(D, R1, R2, R3)] pr(state(d3_402) = open) = 1/2.
+
+[r(D, R1, R2, R3)] pr(state(d3_400) = open) = 1/2.
+
+% goal to find
+% Written in the form in_path([location 1], [location 2])
+in_path(l3_500, l3_516).
+

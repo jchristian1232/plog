@@ -1,0 +1,6 @@
+Syntax Parse Succeed
+Smodels computation time:  13.621
+Answer
+max_door=d3_516a  probability: 0.0714286 0.0714286
+max_door=d3_516b  probability: 0.0714286 0.0714286
+Probability Computing Time:335.84
