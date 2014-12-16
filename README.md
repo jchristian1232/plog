@@ -22,28 +22,29 @@ eachother.  Probabilities and goals can change, and it should be simple to go in
 thing.  The data has to be separate since the program is reading in the same data file that the
 robot is using to plan paths around the building.
 
-assemble.cpp
+assemble.cpp - 
   A simple program that combines all of the components into "everything.plg" so that the reasoner
   can take in one file.  It only rebuilds everything.plg if one of the components is updated.
 
-data.plg
+data.plg - 
   Actually built from the robot's navigation_facts.asp to construct the set of all possible doors
   and rooms. P-Log and ASP work differently in defining sets, so I have to make the ASP file work
   for the P-Log reasoner.
 
-doors_logic.plg
+doors_logic.plg - 
   Contains the heart of the project and actually finds out which door is most likely to be open.
   Should not have to be touched once completed.
 
-goal.plg
+goal.plg - 
   One line to specify the two rooms the reasoner should consider.
 
-prbabilities.plg
+prbabilities.plg - 
   Stores the probabilities of certain doors being open.  As of now these probabilities are
   hard-coded and assumed to be 1/2.
 
-plog.sh
+plog.sh - 
   Runs both the assembler and the p-log program.
 
-plog_demo.cpp
+plog_demo.cpp - 
   A simple demo for the robots to show that everything works and can be used.
+  
